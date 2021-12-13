@@ -4,9 +4,12 @@ const { Op } = require("sequelize");
 exports.getAll = async (req, res) => {
   try {
     const data = await courses.findAll({
-      attributes: {
-        exclude: ["status", "created_at", "updatedAt", "deleted_at"],
-      },
+      // sequelize puts in order but if needed
+      order: [["created_at", "ASC"]],
+      attributes: [
+        ["id", "id"],
+        ["name", "name"],
+      ],
     });
 
     res.status(200).json(data);
@@ -49,6 +52,8 @@ exports.getOne = async (req, res) => {
 exports.createCourse = async (req, res) => {
   try {
     const body = req.body;
+
+    // check for requirements
     if (!body.name) {
       return res.status(400).json("A course name is required");
     }
@@ -61,6 +66,8 @@ exports.createCourse = async (req, res) => {
         .status(400)
         .json("Status must be one of: scheduled, in_production, or available");
     }
+
+    // create course
     const data = {
       name: body.name,
       status: body.status,
@@ -68,7 +75,9 @@ exports.createCourse = async (req, res) => {
 
     const created = await courses.create(data);
 
+    // set location header
     res.setHeader("Location", `/courses/${created.id}`);
+
     res.status(201).json(created);
   } catch (error) {
     res.status(500).json(`An error has occurred: ${error}`);
