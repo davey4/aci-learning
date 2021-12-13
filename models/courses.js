@@ -13,7 +13,6 @@ module.exports = (sequelize, DataTypes) => {
   }
   courses.init(
     {
-      paranoid: true,
       name: {
         type: DataTypes.STRING,
         allowNull: false,
@@ -26,6 +25,12 @@ module.exports = (sequelize, DataTypes) => {
     {
       sequelize,
       modelName: "courses",
+      tableName: "courses",
+      createdAt: "created_at",
+      updatedAt: "updatedAt",
+      deletedAt: "deleted_at",
+      paranoid: true,
+      timestamps: true,
     }
   );
   return courses;

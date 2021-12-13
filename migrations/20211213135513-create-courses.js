@@ -16,7 +16,7 @@ module.exports = {
         allowNull: false,
         type: Sequelize.STRING,
       },
-      createdAt: {
+      created_at: {
         allowNull: false,
         type: Sequelize.DATE,
         defaultValue: new Date(),
@@ -26,7 +26,7 @@ module.exports = {
         type: Sequelize.DATE,
         defaultValue: new Date(),
       },
-      deletedAt: {
+      deleted_at: {
         type: Sequelize.DATE,
       },
     });
