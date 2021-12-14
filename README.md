@@ -6,6 +6,7 @@
 
 - Postresql
 - Express
+- Sequelize
 - Node
 
 ### Getting Started

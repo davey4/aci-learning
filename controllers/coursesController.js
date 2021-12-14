@@ -120,15 +120,15 @@ exports.updateCourse = async (req, res) => {
         .json("Status must be one of: scheduled, in_production, or available");
     }
 
+    // update course
     const data = {
       name: body.name,
       status: body.status,
     };
 
-    // update course
     const updated = await courses.update(data, { where: { id: id } });
 
-    res.status(201).json(updated);
+    res.status(200).json(updated);
   } catch (error) {
     res.status(500).json(`An error has occurred: ${error}`);
   }
